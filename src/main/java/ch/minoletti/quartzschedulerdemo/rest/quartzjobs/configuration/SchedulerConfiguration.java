@@ -1,13 +1,9 @@
 package ch.minoletti.quartzschedulerdemo.rest.quartzjobs.configuration;
 
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
+import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,13 +14,14 @@ public class SchedulerConfiguration {
 
     @Bean
     public Scheduler scheduler(
-            @Qualifier("helloJobDetail") JobDetail helloJobDetail,
-            @Qualifier("helloTrigger") Trigger helloTrigger,
-            @Qualifier("ghesmeJobDetail") JobDetail ghesmeJobDetail,
-            @Qualifier("ghesmeTrigger") Trigger ghesmeTrigger) {
+            JobDetail helloJobDetail,
+            Trigger helloTrigger,
+            JobDetail ghesmeJobDetail,
+            Trigger ghesmeTrigger) {
         Scheduler scheduler = null;
         try {
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
+            SchedulerFactory sf = new StdSchedulerFactory();
+            scheduler = sf.getScheduler();
             scheduler.start();
             // Tell quartz to schedule the job using the corresponding trigger
             scheduler.scheduleJob(helloJobDetail, helloTrigger);
