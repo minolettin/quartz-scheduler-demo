@@ -1,0 +1,9 @@
+server.servlet.context-path: /demo-app
+server:
+  port: 7030
+spring:
+  quartz:
+    properties:
+      scheduler.instanceName: MyScheduler
+      threadPool.threadCount: 3
+      jobStore.class: org.quartz.simpl.RAMJobStore

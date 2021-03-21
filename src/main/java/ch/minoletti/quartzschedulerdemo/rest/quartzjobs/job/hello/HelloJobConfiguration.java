@@ -1,4 +1,4 @@
-package ch.minoletti.quartzschedulerdemo.rest.quartzjobs.jobs.ghesme;
+package ch.minoletti.quartzschedulerdemo.rest.quartzjobs.job.hello;
 
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
@@ -10,20 +10,20 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 @Configuration
-public class GhesmeJobConfiguration {
+public class HelloJobConfiguration {
     @Bean
-    public JobDetail ghesmeJobDetail() {
-        return newJob(GhesmeJob.class)
-                .withIdentity("ghesmeJob", "group1")
+    public JobDetail helloJobDetail() {
+        return newJob(HelloJob.class)
+                .withIdentity("helloJob", "group1")
                 .build();
     }
 
     @Bean
-    public Trigger ghesmeTrigger() {
+    public Trigger helloTrigger() {
         return newTrigger()
-                .withIdentity("ghesmeTrigger", "group1")
+                .withIdentity("helloTrigger", "group1")
                 .startNow()
-                .withSchedule(cronSchedule("0/10 * * ? * * *"))
+                .withSchedule(cronSchedule("0/5 * * ? * * *"))
                 .build();
     }
 }
